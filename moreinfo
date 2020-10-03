@@ -1,0 +1,20 @@
+// класс для хранения номера телефона и адресса
+public class moreinfo {
+	public static void main() {}
+}
+class work extends pers{  //Класс наследуется от предыдущего и расширяет его
+	private String adress; //Новые пременные с адрессом
+	private long phone;    //И номером телефона
+	public work(String name,int age, String adress, long phone) { //Обявление всех переменных, путём создания конструктора
+		super(name,age); //Параметр super указывает на то, какие данные будет брать дочерний класс у основного
+		this.adress = adress;
+		this.phone = phone;
+	}
+	public void displayMoreInfo() { //Это для вывода в консоль (Использовал во время отладки)
+		System.out.printf("Name: %s Age: %s\nPhone: %s adress: %s",getname(),getage(), phone, adress);
+	}
+	public String foWrite() { //А этот, с возвращаемыми значениями, специально для записи в файл
+		String tex = "\n Имя: " +getname() +" Город: " +adress +" Возраст: " +getage()+" Телефон: " +phone;
+		return tex;
+	}
+}
