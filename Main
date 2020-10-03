@@ -1,0 +1,46 @@
+//программа для записи карточек персонала
+//Основная часть программы, она же - испольнительный файл
+import java.io.BufferedWriter;  //Импорт необходимых библиотек. Записывает данные в файл
+import java.io.FileWriter;      //Тоже записывает
+import java.io.IOException;     // Работа с файлаи
+import java.util.Scanner;       //Принимает ввод от пользователя
+
+public class Main { 
+	public static void main(String[] args) {
+		System.out.println("Введите данные:"); //У меня не получилось вывести это в отельный класс (Что б можно было запихнуть в цикл) по этому пока так
+		System.out.printf("Имя: ");
+		Scanner in_name = new Scanner(System.in);
+		String name = in_name.nextLine();
+	
+		System.out.printf("Возраст: ");
+		Scanner in_age = new Scanner(System.in);
+		int age = in_age.nextInt();
+		
+		System.out.printf("Город: ");
+		Scanner in_adress = new Scanner(System.in);
+		String adress = in_adress.nextLine();
+	
+		System.out.printf("Телефон");
+		Scanner in_phone = new Scanner(System.in);
+		long phone = in_phone.nextLong();
+	
+		in_name.close();
+		in_age.close();
+		in_adress.close();
+		in_phone.close();
+		work tom = new work(name, age, adress, phone); //я хз почему том, просто так получилось
+		//tom.displayPers(); //он нужен, что бы показать что будет записанно (Не актуально)
+		tom.displayMoreInfo(); //Показывает какие данные получил
+		String filePath = "/home/es/devolop/test.txt"; //Указывает деррикорию, в которую будет записывать
+		try {  //Собственно сам блок записи в файл
+			FileWriter writer = new FileWriter(filePath, true);
+			BufferedWriter bufferWriter = new BufferedWriter(writer);
+			bufferWriter.write(tom.foWrite());
+			bufferWriter.close();
+			System.out.printf("\nWriting complitle!");
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	
+	}
+}
