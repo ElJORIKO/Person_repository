@@ -1,0 +1,21 @@
+// Класс с статистикой для каждого человека Возраст\имя
+public class persona {
+	public static void main() {}  //Класс мейн...
+}
+class pers{ //Основный класс, который получает имя и фозраст
+	private String name; 
+	private int age;
+	public String getname() {return name;} //Для более удобной работы, определяю себе оператор, который возвращает имя
+	public int getage() {return age;} // и возраст
+	public pers(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
+	{ 
+		name = "EMPTY"; //Такие данные будут подставленны, если данных не будет
+		age = 0;        //Если не будет имени или возраста, точнее
+	}
+	void displayPers() { //И опреатор, выводящий это всё на экран
+		System.out.printf("Name: %s Age: %s\n", name,age);
+	}
+}
