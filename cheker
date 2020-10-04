@@ -1,0 +1,23 @@
+// Класс для вывода содержимого файла и кол-ва линий (Линии нужны будут для ореинтирования по списку имён)
+//"/home/es/devolop/test.txt"
+import java.io.*;
+
+public class cheker {
+	public static void main(String[] args) throws Exception { //Здесь я ришил использовать другой метод отлова ошибок
+		FileReader reader = new FileReader("/home/es/devolop/test.txt"); //Тот же самый файл, в который идет запись данных
+			int c;
+			while((c=reader.read())!=-1) { // Этот цикл посимвольно читает файл и выводит содержимое в консоль (Скорее всего избавлюсь от этого)
+				System.out.print((char)c);
+			}
+		File file = new File ("/home/es/devolop/test.txt");     //Эта часть отвечает за подсчет колличества строк(Здесь получает файл
+		FileInputStream fis = new FileInputStream(file);        //Файл содержиться в переменной fis
+		byte [] byteArray = new byte[(int)file.length()];       //Получает длинну(Размер файла)
+		fis.read(byteArray);                                    //Сосбсвенно читает файл
+		String data = new String(byteArray);                    //
+		String[] stringArray = data.split("\n");                //С помощью оператора data.split разделяет файл на строки (Я пробовал с \r но он упорно выдавал только 1)
+		System.out.println("Lines:" +stringArray.length);       //Выводит результат, точнее колличество строк
+		fis.close();                                            //Закрываем потоки 
+		reader.close();                                         //Закрываем
+  //int lines=stringArray.length;			                      //Это мне понадобится в будующем
+	}
+}
