@@ -1,0 +1,42 @@
+import java.io.*;
+
+
+public class checfile {
+	public static void main(String[] args) {}                           //Обязательное наличие main
+}
+
+class Fchek {                                                         //собственно класс, ради которого всё это задумывалось
+	private String fileHolder;                                          //Основная переменная, которую мы получаем из main
+	public boolean cf(String fileHolder) {                              //Тело этого класса, которое выполняет всю работу
+		this.setFileHolder(fileHolder); 
+		File fil1=new File(fileHolder);                                   //Для удобства, я назначил новую переменную, которая действует на протяжении всего класса
+		if (fil1.exists()) {                                              //Если файл уже существует, 
+			System.out.printf("\nFile in %s - exist\n", fileHolder);        //То пишется что такой-то файл, по такому-то адрессу есть
+			boolean x = true;
+			return x;                                                       //Возвращается true
+		} else {
+			System.out.printf("\nFile in %s - not exist\n", fileHolder);    //Если файла нет, то, так же сообщается, и
+			File fil2 = new File(fileHolder);
+			try {
+				boolean created = fil2.createNewFile();                       //Пытается создать новый файл
+				if (created) {
+					System.out.printf("\nFile in %s - is created\n", fileHolder);//Успешно - пишет
+					boolean x = true;
+					return x;
+				}
+			} catch(IOException ex) {
+				System.out.println(ex.getMessage());                          //Если нет - выдаёт ошибку
+				boolean x = false;
+				return x;
+			}
+			boolean x = false;
+			return x;
+		}
+	}
+	public String getFileHolder() {
+		return fileHolder;
+	}
+	public void setFileHolder(String fileHolder) {
+		this.fileHolder = fileHolder;
+	}
+}
