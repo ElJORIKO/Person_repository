@@ -8,6 +8,11 @@ public class Main {
 		String fil = ("/home/es/devolop/test.txt");		//Добавил новую переменную, куда будет записываться введенные данные
 		Fchek checkFileIs = new Fchek();			//И новый класс, он нужен для проверки файла для записи, и, при необходимости, его создания
 		checkFileIs.cf(fil);
+		Scanner in_phone = new Scanner(System.in);
+		Scanner in_adress = new Scanner(System.in);
+		Scanner in_age = new Scanner(System.in);
+		Scanner in_name = new Scanner(System.in);
+		Scanner in_qwestion = new Scanner(System.in);
 		
 		File file = new File (fil);				//Считывает колличество строк
 		FileInputStream fis = new FileInputStream(file);
@@ -15,38 +20,41 @@ public class Main {
 		fis.read(byteArray);
 		String data = new String(byteArray);
 		String[] stringArray = data.split("\n");
-		System.out.println("Lines:" +stringArray.length);	//Выводит колличество строк (Нужно больше для отладки)
-		fis.close();						//Закрывает поток чтения файла
-
-		System.out.println("Введите данные:"); //У меня не получилось вывести это в отельный класс (Что б можно было запихнуть в цикл) по этому пока так
-		System.out.printf("Имя: ");
-		Scanner in_name = new Scanner(System.in);
-		String name = in_name.nextLine();
-	
-		System.out.printf("Возраст: ");
-		Scanner in_age = new Scanner(System.in);
-		int age = in_age.nextInt();
+		System.out.println("Lines:" +stringArray.length);			//Выводит колличество строк (Нужно больше для отладки)
+		fis.close();																					//Закрывает поток чтения файла
+		boolean qwit = true;																	//Добавил переменную boolean она определяет повторить ввод, или нет
+		int lines = stringArray.length;												//Вывел в отдельную переменную для определения колличества линий
 		
-		System.out.printf("Город: ");
-		Scanner in_adress = new Scanner(System.in);
-		String adress = in_adress.nextLine();
-	
-		System.out.printf("Телефон");
-		Scanner in_phone = new Scanner(System.in);
-		long phone = in_phone.nextLong();
-	
-		in_name.close();
-		in_age.close();
-		in_adress.close();
-		in_phone.close();
-		work tom = new work(name, age, adress, phone); 		//я хз почему том, просто так получилось
-		//tom.displayPers(); 					//он нужен, что бы показать что будет записанно (Не актуально)
-		tom.displayMoreInfo(); 					//Показывает какие данные получил
-		String filePath = fil; 					//Указывает деррикорию, в которую будет записывать
-		FileWriter writer = new FileWriter(filePath, true);
-		BufferedWriter bufferWriter = new BufferedWriter(writer);
-		bufferWriter.write(tom.foWrite(stringArray.length));	//Получает значения, которые будут записанны в файл, и дает колличество строк, для составления нумерации
-		bufferWriter.close();
-		System.out.printf("\nWriting complitle!");
+		while (qwit==true) {																	//Цикл, в котором, собственно происходит заполнение данных, для "Карточки"
+			System.out.printf("Введите данные:\nИмя: ");
+			String name = in_name.nextLine();
+			System.out.printf("Возраст: ");
+			int age = in_age.nextInt();
+			System.out.printf("Город: ");
+			String adress = in_adress.nextLine();
+			System.out.printf("Телефон");
+			long phone = in_phone.nextLong();
+			work tom = new work(name, age, adress, phone);
+			tom.displayMoreInfo();
+			String filePath = fil;
+			FileWriter writer = new FileWriter(filePath, true);
+			BufferedWriter bufferWriter = new BufferedWriter(writer);
+			bufferWriter.write(tom.foWrite(lines));
+			bufferWriter.close();
+			System.out.printf("\nWriting complitle!\n");
+			lines = lines + 1;
+			System.out.printf("Повторить? 1- да; 2- нет");
+			int qwestion = in_qwestion.nextInt();
+			if (qwestion == 1) {
+				qwit = true;
+			} else {
+				qwit = false;
+            		}
+		}
+        in_name.close();
+        in_age.close();
+        in_adress.close();
+        in_phone.close();
+        in_qwestion.close();
 	}
 }
