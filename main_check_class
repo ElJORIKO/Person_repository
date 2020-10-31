@@ -1,0 +1,39 @@
+import java.io.File;
+import java.io.IOException;
+
+
+public class main_check_class {
+	public static void main(String[] args) {}
+}
+
+class Fchek {
+	private String fileHolder;
+	public boolean cf(String fileHolder) {
+		this.setFileHolder(fileHolder);
+		File fil1=new File(fileHolder);
+		if (fil1.exists()) {
+			System.out.printf("\nFile in %s - exist\n", fileHolder);
+			boolean x = true;
+			return x;
+		} else {
+			System.out.printf("\nFile in %s - not exist\n", fileHolder);
+			File fil2 = new File(fileHolder);
+			try {
+				boolean created = fil2.createNewFile();
+				if (created) {
+					System.out.printf("\nFile in %s - is created\n", fileHolder);
+					boolean x = true;
+					return x;
+				}
+			} catch(IOException ex) {
+				System.out.println(ex.getMessage());
+				boolean x = false;
+				return x;
+			}
+			boolean x = false;
+			return x;
+		}
+	}
+	public String getFileHolder() {return fileHolder;}
+	public void setFileHolder(String fileHolder) {this.fileHolder = fileHolder;}
+}
