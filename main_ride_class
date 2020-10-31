@@ -1,0 +1,13 @@
+// Основной клас, для записи файлов
+import java.io.*;
+
+public class main_ride_class {
+	public static void main(String[] args) {
+	}
+	
+}
+class ride_class{
+	private void fileHolder () {
+		
+	}
+}
