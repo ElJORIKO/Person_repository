@@ -1,60 +1,54 @@
-//программа для записи карточек персонала
-//Основная часть программы, она же - испольнительный файл
-import java.io.*; 		//импорт библиотек для работы с файлами
-import java.util.Scanner;       //Принимает ввод от пользователя
+// Основной класс, который должен вызывать все нужные и ненужные функции
+import java.util.Scanner;
 
-public class Main { 
-	public static void main(String[] args) throws Exception { 	//Здесь добавилось обработка исключений, что б не писать каждый раз на каждый блок
-		String fil = ("/home/es/devolop/test.txt");		//Добавил новую переменную, куда будет записываться введенные данные
-		Fchek checkFileIs = new Fchek();			//И новый класс, он нужен для проверки файла для записи, и, при необходимости, его создания
-		checkFileIs.cf(fil);
-		Scanner in_phone = new Scanner(System.in);
-		Scanner in_adress = new Scanner(System.in);
-		Scanner in_age = new Scanner(System.in);
-		Scanner in_name = new Scanner(System.in);
-		Scanner in_qwestion = new Scanner(System.in);
-		
-		File file = new File (fil);				//Считывает колличество строк
-		FileInputStream fis = new FileInputStream(file);
-		byte [] byteArray = new byte[(int)file.length()];
-		fis.read(byteArray);
-		String data = new String(byteArray);
-		String[] stringArray = data.split("\n");
-		System.out.println("Lines:" +stringArray.length);			//Выводит колличество строк (Нужно больше для отладки)
-		fis.close();																					//Закрывает поток чтения файла
-		boolean qwit = true;																	//Добавил переменную boolean она определяет повторить ввод, или нет
-		int lines = stringArray.length;												//Вывел в отдельную переменную для определения колличества линий
-		
-		while (qwit==true) {																	//Цикл, в котором, собственно происходит заполнение данных, для "Карточки"
-			System.out.printf("Введите данные:\nИмя: ");
-			String name = in_name.nextLine();
-			System.out.printf("Возраст: ");
-			int age = in_age.nextInt();
-			System.out.printf("Город: ");
-			String adress = in_adress.nextLine();
-			System.out.printf("Телефон");
-			long phone = in_phone.nextLong();
-			work tom = new work(name, age, adress, phone);
-			tom.displayMoreInfo();
-			String filePath = fil;
-			FileWriter writer = new FileWriter(filePath, true);
-			BufferedWriter bufferWriter = new BufferedWriter(writer);
-			bufferWriter.write(tom.foWrite(lines));
-			bufferWriter.close();
-			System.out.printf("\nWriting complitle!\n");
-			lines = lines + 1;
-			System.out.printf("Повторить? 1- да; 2- нет");
-			int qwestion = in_qwestion.nextInt();
-			if (qwestion == 1) {
-				qwit = true;
+public class Main extends Thread {
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		Person person = new Person();
+		String file = "/home/es/devolop/test.txt";
+		System.out.println("загрузка");
+		fileCheck t = new fileCheck("Louding");
+		t.run(file);
+		System.out.printf("\nПрограмма запущена\n");
+		boolean continue_qwestion = true;
+		while (continue_qwestion == true) {
+			System.out.printf("Выберете действие: \nДобавить новую карточку - newCart \nПосмотреть список доступных карточек - listCart \nВыйти - exit \n");
+			String main_qwestion = in.nextLine();
+			if ( main_qwestion.equals("newCart") == true) {
+				System.out.println("Начинаем");
+				boolean b = true;
+				while (b==true) {
+				//person.main_person();
+				b = person.main_person();
+				}
+			} else if (main_qwestion.equals("listCart") == true) {
+				System.out.println("LLLLLLLLLLLLLLLLL");
+			} else if (main_qwestion.equals("exit") == true) {
+				System.out.println("EEEEEEEEEE");
+				continue_qwestion = false;
 			} else {
-				qwit = false;
-            		}
+				System.out.println("Неизвестная комманда");
+			}
 		}
-        in_name.close();
-        in_age.close();
-        in_adress.close();
-        in_phone.close();
-        in_qwestion.close();
+		in.close();
+	}
+}
+class fileCheck extends Thread {
+	fileCheck(String name) {super(name);}
+	public void run(String file) {
+		System.out.println("");
+		Fchek check = new Fchek();
+		if (check.cf(file) == true) {
+			for (int i = 0; i <= 10; i++) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					System.out.println("Err");
+				}
+				System.out.printf("..");
+			}
+		} else {
+			System.out.println("Err 002");
+		}
 	}
 }
