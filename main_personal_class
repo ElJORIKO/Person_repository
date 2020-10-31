@@ -1,0 +1,31 @@
+// Класс для составления основной информации о человеке
+// Фамилия, город
+import java.util.Scanner;
+
+public class main_personal_class {
+	public static void main(String[] args) {}
+}
+class Person extends Thread {
+	public synchronized boolean main_person() {
+		System.out.printf("Введите имя, фамилию, город, через пробел: ");
+		Scanner in_line = new Scanner(System.in);
+		Scanner in_l = new Scanner(System.in);
+		boolean cont_ride = true;
+		//while (cont_ride == true) {
+			String person_infoString = in_line.nextLine();
+			String[] person_split = person_infoString.split(" ");
+			for(String word : person_split) {
+				System.out.println(word);
+			}
+		System.out.printf("1");
+		int n = in_l.nextInt();
+		if (n == 1) {
+			cont_ride = false;
+		}
+			//cont_ride = false;
+		//}
+		in_l.close();
+		in_line.close();
+		return cont_ride;
+	}
+}
